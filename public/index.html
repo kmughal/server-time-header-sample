@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Server Timing Example</h1>
+    <button id="call-backend">Call backend</button>
+    <pre id="server-timing"></pre>
+    <script>
+      document
+        .getElementById("call-backend")
+        .addEventListener("click", async () => {
+          const res = await fetch("/hello-world");
+          const text = await res.text();
+          console.log(res);
+          let entries = performance.getEntriesByType("resource");
+          document.getElementById("server-timing").innerHTML = JSON.stringify(
+            entries,
+            null,
+            2
+          );
+        });
+    </script>
+  </body>
+</html>
